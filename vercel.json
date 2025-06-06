@@ -1,0 +1,8 @@
+{
+    "rewrites": [
+      { "source": "/v1/file/list", "destination": "/api/list" },
+      { "source": "/v1/file/content", "destination": "/api/content" },
+      { "source": "/v1/file/read", "destination": "/api/read" },
+      { "source": "/v1/file/detail", "destination": "/api/detail" }
+    ]
+  }
