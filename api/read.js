@@ -10,7 +10,7 @@ const s3 = new AWS.S3({
 
 const BUCKET = process.env.BUCKET || 'your-bucket-name';
 
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
     if (req.method !== 'GET') return res.status(405).end();
     
     try {
@@ -21,4 +21,4 @@ export default async function handler(req, res) {
     } catch (error) {
         res.status(500).json({ success: false, message: error.message, data: null });
     }
-}
+};
