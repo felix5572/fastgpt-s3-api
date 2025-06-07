@@ -1,14 +1,14 @@
 const AWS = require('aws-sdk');
 
 const s3 = new AWS.S3({
-    accessKeyId: process.env.ACCESS_KEY || '59xf0d5m',
-    secretAccessKey: process.env.SECRET_KEY || 'ztxvmptw2dpcl5q5',
-    endpoint: 'https://objectstorageapi.bja.sealos.run',
+    accessKeyId: process.env.BUCKET_ACCESS_KEY,
+    secretAccessKey: process.env.BUCKET_SECRET_KEY,
+    endpoint: process.env.BUCKET_ENDPOINT || 'https://objectstorageapi.bja.sealos.run',
     s3ForcePathStyle: true,
     region: 'us-east-1'
 });
 
-const BUCKET = process.env.BUCKET || 'your-bucket-name';
+const BUCKET_NAME = process.env.BUCKET_NAME;
 
 export default async function handler(req, res) {
     if (req.method !== 'POST') return res.status(405).end();
@@ -17,7 +17,7 @@ export default async function handler(req, res) {
     
     try {
         const result = await s3.listObjectsV2({
-            Bucket: BUCKET,
+            Bucket: BUCKET_NAME,
             Prefix: parentId || '',
             Delimiter: '/'
         }).promise();

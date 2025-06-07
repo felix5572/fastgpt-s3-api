@@ -1,20 +1,20 @@
 const AWS = require('aws-sdk');
 
 const s3 = new AWS.S3({
-    accessKeyId: process.env.ACCESS_KEY || '59xf0d5m',
-    secretAccessKey: process.env.SECRET_KEY || 'ztxvmptw2dpcl5q5',
-    endpoint: 'https://objectstorageapi.bja.sealos.run',
+    accessKeyId: process.env.BUCKET_ACCESS_KEY,
+    secretAccessKey: process.env.BUCKET_SECRET_KEY,
+    endpoint: process.env.BUCKET_ENDPOINT || 'https://objectstorageapi.bja.sealos.run',
     s3ForcePathStyle: true,
     region: 'us-east-1'
 });
 
-const BUCKET = process.env.BUCKET || '59xf0d5m-deepmd-paper';
-const MODAL_API_URL = "https://yfb222333--pdf-parser-parse-pdf-api.modal.run";  // 更新URL
+const BUCKET_NAME = process.env.BUCKET_NAME;
+const PDF_PARSER_API_URL = process.env.PDF_PARSER_API_URL || "https://yfb222333--pdf-parser-parse-pdf-api.modal.run";  
 
 async function parseWithModal(pdfUrl) {
     console.log('=== DEBUG: 调用Modal GPU API ===', pdfUrl);
     
-    const response = await fetch(MODAL_API_URL, {
+    const response = await fetch(PDF_PARSER_API_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ pdf_url: pdfUrl })
@@ -37,7 +37,7 @@ export default async function handler(req, res) {
     // PDF文件用Modal GPU解析
     if (id && id.toLowerCase().endsWith('.pdf')) {
         console.log('=== DEBUG: 识别为PDF，调用GPU解析 ===');
-        const pdfUrl = `https://objectstorageapi.usw.sealos.io/${BUCKET}/${id}`;
+        const pdfUrl = `${process.env.BUCKET_ENDPOINT}/${BUCKET_NAME}/${id}`;
         const content = await parseWithModal(pdfUrl);
         return res.json({ success: true, message: 'success', data: { content } });
     }
