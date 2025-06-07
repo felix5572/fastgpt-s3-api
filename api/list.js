@@ -38,6 +38,7 @@ export default async function handler(req, res) {
         result.Contents?.forEach(obj => {
             if (!obj.Key.endsWith('/')) {
                 const name = obj.Key.split('/').pop();
+                if (name === '_#') return;
                 data.push({
                     id: obj.Key,
                     parentId: parentId || null,
