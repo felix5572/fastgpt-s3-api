@@ -3,7 +3,7 @@ const AWS = require('aws-sdk');
 const s3 = new AWS.S3({
     accessKeyId: process.env.ACCESS_KEY || '59xf0d5m',
     secretAccessKey: process.env.SECRET_KEY || 'ztxvmptw2dpcl5q5',
-    endpoint: 'https://objectstorageapi.usw.sealos.io',
+    endpoint: 'https://objectstorageapi.bja.sealos.run',
     s3ForcePathStyle: true,
     region: 'us-east-1'
 });
