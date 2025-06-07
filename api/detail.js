@@ -5,7 +5,7 @@ const s3 = new AWS.S3({
     secretAccessKey: process.env.BUCKET_SECRET_KEY,
     endpoint: process.env.BUCKET_ENDPOINT || 'https://objectstorageapi.bja.sealos.run',
     s3ForcePathStyle: true,
-    region: 'us-east-1'
+    // region: 'us-east-1'
 });
 
 const BUCKET_NAME = process.env.BUCKET_NAME;
