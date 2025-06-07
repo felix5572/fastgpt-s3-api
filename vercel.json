@@ -1,5 +1,4 @@
 {
-    "regions": ["hkg1"],
     "rewrites": [
       { "source": "/v1/file/list", "destination": "/api/list" },
       { "source": "/v1/file/content", "destination": "/api/content-pdfmodal" },
